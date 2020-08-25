@@ -7,4 +7,4 @@ A placeholder for colo tests
   to these files
 
 # Run Tests
-bash run-tests.sh --iodepth 64 --host 0.0.0.0 `pwd`/tmp fio-tests/*
+bash run-tests.sh --iodepth 64 --host 10.20.91.101 --storage 10.20.91.103 `pwd`/tmp fio-tests/randread_libaio.fio

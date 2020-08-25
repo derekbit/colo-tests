@@ -10,6 +10,7 @@ BLOCKSIZE="4K"
 DIRECT=0
 
 HOST_IP=0.0.0.0
+STORAGE_IP=0.0.0.0
 
 drop_cache()
 {
@@ -28,6 +29,7 @@ print_info() {
     JOBNAME="$1"
     LOOP="$2"
     HOST_IP=${HOST_IP}
+    STORAGE_IP=${STORAGE_IP}
     TEST_DIR=${TEST_DIR}
     RAMP_TIME=${RAMP_TIME}
     RUNTIME=${RUNTIME}
@@ -68,6 +70,7 @@ Options:
     --direct      If set to 1, use non-buffered I/O. Default is 0.
 
     --host        Host IP.
+    --storage     Storage IP.
 FOE
 }
 
@@ -123,6 +126,11 @@ case $key in
     shift # past argument
     shift # past value
     ;;
+    -g|--storage)
+    STORAGE_IP="$2"
+    shift # past argument
+    shift # past value
+    ;;
     *)    # unknown option
     POSITIONAL+=("$1") # save it in an array for later
     shift # past argument
@@ -143,6 +151,7 @@ for jobname in $JOB_FILES;do
         print_info "$jobname" "$i"
         drop_cache
         drop_cache ${HOST_IP}
+	drop_cache ${STORAGE_IP}
 
         run_test "$i" "$jobname"
     done
