@@ -47,7 +47,7 @@ run_test()
     local JOB_FILE="$2"
     local BASENAME=$(basename ${JOB_FILE} | cut -f 1 -d '.')
 
-    local OUTPUT="fio_ramptime_${RAMP_TIME}_runtime_${RUNTIME}_IODEPTH_${IODEPTH}_DIRECT_${DIRECT}_BS_${BLOCKSIZE}_${BASENAME}.${LOOP}"
+    local OUTPUT="fio_ramptime_${RAMP_TIME}_runtime_${RUNTIME}_iodepth_${IODEPTH}_direct_${DIRECT}_bs_${BLOCKSIZE}_${BASENAME}.${LOOP}"
 
     fio --directory="$TEST_DIR" --ramp_time=$RAMP_TIME --runtime=$RUNTIME --iodepth=$IODEPTH --size="$SIZE" --direct=$DIRECT --blocksize="$BLOCKSIZE" --output "$TEST_DIR/$OUTPUT" --output-format json "$JOB_FILE"
 }
