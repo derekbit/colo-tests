@@ -7,4 +7,4 @@ A placeholder for colo tests
   to these files
 
 # Run Tests
-bash run-tests.sh --iodepth 64 --host 10.20.91.101 --storage 10.20.91.103 `pwd`/tmp fio-tests/randread_libaio.fio
+bash run-tests.sh --iodepth 64 --size 72G --blocksize 4K --direct 0 --host 10.20.91.101 --storage 10.20.91.103 `pwd`/tmp fio-tests/seqread_libaio.fio
