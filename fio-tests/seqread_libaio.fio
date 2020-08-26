@@ -1,6 +1,6 @@
 [global]
 name=fio-file
-filename=file-file1
+filename=testfile
 rw=read
 ioengine=libaio
 numjobs=1
