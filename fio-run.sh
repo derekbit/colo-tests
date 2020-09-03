@@ -38,6 +38,7 @@ print_info() {
     SIZE=${SIZE}
     BLOCKSIZE=${BLOCKSIZE}
     DIRECT=${DIRECT}
+    OUTPUT_DIR=${OUTPUT_DIR}
 FOE
 }
 
@@ -49,7 +50,7 @@ run_test()
 
     local OUTPUT="fio_ramptime_${RAMP_TIME}_runtime_${RUNTIME}_iodepth_${IODEPTH}_direct_${DIRECT}_bs_${BLOCKSIZE}_${BASENAME}.${LOOP}"
 
-    fio --directory="$TEST_DIR" --ramp_time=$RAMP_TIME --runtime=$RUNTIME --iodepth=$IODEPTH --size="$SIZE" --direct=$DIRECT --blocksize="$BLOCKSIZE" --output "$TEST_DIR/$OUTPUT" --output-format json "$JOB_FILE"
+    fio --directory="$TEST_DIR" --ramp_time=$RAMP_TIME --runtime=$RUNTIME --iodepth=$IODEPTH --size="$SIZE" --direct=$DIRECT --blocksize="$BLOCKSIZE" --output "$OUTPUT_DIR/$OUTPUT" --output-format json "$JOB_FILE"
 }
 
 usage()
@@ -71,6 +72,8 @@ Options:
 
     --host        Host IP.
     --storage     Storage IP.
+
+    --output      Path to output directory.
 FOE
 }
 
@@ -128,6 +131,11 @@ case $key in
     ;;
     -g|--storage)
     STORAGE_IP="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    -o|--output)
+    OUTPUT_DIR="$2"
     shift # past argument
     shift # past value
     ;;
