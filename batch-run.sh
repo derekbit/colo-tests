@@ -13,9 +13,9 @@ WORKING_DIR=`pwd`/${NAME}
 [ ! -e ${WORKING_DIR} ] || rm -rf ${WORKING_DIR}
 mkdir -p ${WORKING_DIR}
 
-for BS in "4K" "16K" "64K" "512K" "1M"
+for DIRECT in 0 1
 do
-	for DIRECT in 0
+	for BS in "4K" "16K" "32K" "64K" "512K" "1M"
 	do
 		OUTPUT_DIR=`pwd`/${NAME}/${DIRECT}/${BS}
 
