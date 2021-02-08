@@ -1,13 +1,10 @@
 #!/bin/bash
 
-NAME=ft_with_write_throttle
+NAME=ft
 
 IODEPTH=64
-FILESIZE="72G"
-LOOPS=4
-
-HOST_IP="10.20.91.101"
-STORAGE_IP="10.20.91.103"
+FILESIZE="24G"
+LOOPS=3
 
 WORKING_DIR=`pwd`/${NAME}
 [ ! -e ${WORKING_DIR} ] || rm -rf ${WORKING_DIR}
@@ -22,9 +19,8 @@ do
 		[ ! -e ${OUTPUT_DIR} ] || rm -rf ${OUTPUT_DIR}
 		mkdir -p ${OUTPUT_DIR}
 
-		bash fio-run.sh --iodepth ${IODEPTH} --size ${FILESIZE} --blocksize ${BS} --direct ${DIRECT} --loops ${LOOPS} --host ${HOST_IP} --storage ${STORAGE_IP} --output ${OUTPUT_DIR} ${WORKING_DIR} fio-tests/*.fio
+		bash fio-run.sh --iodepth ${IODEPTH} --size ${FILESIZE} --blocksize ${BS} --direct ${DIRECT} --loops ${LOOPS} --output ${OUTPUT_DIR} ${WORKING_DIR} fio-tests/*.fio
 	done
 done
 
 rm -f ${WORKING_DIR}/testfile
-
