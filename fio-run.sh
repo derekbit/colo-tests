@@ -3,9 +3,10 @@
 # Defaults
 RAMP_TIME=30
 RUNTIME=120
-LOOPS=4
+LOOPS=3
 IODEPTH=64
 SIZE="20G"
+NUMJOBS=1
 BLOCKSIZE="4K"
 DIRECT=0
 
@@ -29,6 +30,7 @@ print_info() {
     RAMP_TIME=${RAMP_TIME}
     RUNTIME=${RUNTIME}
     LOOPS=${LOOPS}
+    NUMJOBS=${NUMJOBS}
     IODEPTH=${IODEPTH}
     SIZE=${SIZE}
     BLOCKSIZE=${BLOCKSIZE}
@@ -43,9 +45,9 @@ run_test()
     local JOB_FILE="$2"
     local BASENAME=$(basename ${JOB_FILE} | cut -f 1 -d '.')
 
-    local OUTPUT="fio_ramptime_${RAMP_TIME}_runtime_${RUNTIME}_iodepth_${IODEPTH}_direct_${DIRECT}_bs_${BLOCKSIZE}_${BASENAME}.${LOOP}"
+    local OUTPUT="fio_ramptime_${RAMP_TIME}_runtime_${RUNTIME}_numjobs_${NUMJOBS}_iodepth_${IODEPTH}_direct_${DIRECT}_bs_${BLOCKSIZE}_${BASENAME}.${LOOP}"
 
-    fio --directory="$TEST_DIR" --ramp_time=$RAMP_TIME --runtime=$RUNTIME --iodepth=$IODEPTH --size="$SIZE" --direct=$DIRECT --blocksize="$BLOCKSIZE" --output "$OUTPUT_DIR/$OUTPUT" --output-format json "$JOB_FILE"
+    fio --directory="$TEST_DIR" --ramp_time=$RAMP_TIME --runtime=$RUNTIME --iodepth=$IODEPTH --size="$SIZE" --direct=$DIRECT --blocksize="$BLOCKSIZE" --numjobs=$NUMJOBS --ioengine=libaio --output "$OUTPUT_DIR/$OUTPUT" --output-format json "$JOB_FILE"
 }
 
 usage()
@@ -93,6 +95,11 @@ case $key in
     ;;
     -l|--loops)
     LOOPS="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    -n|--numjobs)
+    NUMJOBS="$2"
     shift # past argument
     shift # past value
     ;;
